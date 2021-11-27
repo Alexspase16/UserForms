@@ -23,11 +23,37 @@ namespace UserForms
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'dboDataSet1.users' table. You can move, or remove it, as needed.
-            this.usersTableAdapter1.Fill(this.dboDataSet1.users);
-            // TODO: This line of code loads data into the 'dboDataSet.users' table. You can move, or remove it, as needed.
-            this.usersTableAdapter.Fill(this.dboDataSet.users);
+            var connString = "Server=localhost;Port=3306;User id=root; Password=Vesna#12345;Persistsecurityinfo=True;Database=dbo";
 
+            MySqlConnection conn = new MySqlConnection(connString);
+            MySqlCommand command = conn.CreateCommand();
+
+            command.CommandText = "SELECT * FROM Users";
+            MySqlDataAdapter dAdapter = new MySqlDataAdapter(command);
+
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            DataTable dTable = new DataTable();
+            //fill the DataTable
+            dAdapter.Fill(dTable);
+
+            //BindingSource to sync DataTable and DataGridView
+            BindingSource bSource = new BindingSource();
+
+            //set the BindingSource DataSource
+            bSource.DataSource = dTable;
+
+            //set the DataGridView DataSource
+            dataGridView1.DataSource = bSource;
+
+            conn.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -40,7 +66,7 @@ namespace UserForms
                 MySqlConnection conn = new MySqlConnection(connString);
                 MySqlCommand command = conn.CreateCommand();
 
-                command.CommandText = "UPDATE Users SET FirstName='" + dataGridView1.SelectedRows[0].Cells[1].Value.ToString() + "', LastName='" + dataGridView1.SelectedRows[0].Cells[2].Value.ToString() + "', Email='" + dataGridView1.SelectedRows[0].Cells[3].Value.ToString() + "', DateOfBirth=CAST(N'" + DateTime.ParseExact(dataGridView1.SelectedRows[0].Cells[4].Value.ToString(), "dd.MM.yyyy hh:mm:ss", CultureInfo.InvariantCulture).ToString("yyyy-MM-dd") + "' AS DateTime), Username='" + dataGridView1.SelectedRows[0].Cells[5].Value.ToString() + "', Password='" + dataGridView1.SelectedRows[0].Cells[6].Value.ToString() + "', Gender='" + dataGridView1.SelectedRows[0].Cells[7].Value.ToString() + "' WHERE Id = " + index + ";";
+                command.CommandText = "UPDATE Users SET FirstName='" + dataGridView1.SelectedRows[0].Cells[1].Value.ToString() + "', LastName='" + dataGridView1.SelectedRows[0].Cells[2].Value.ToString() + "', Email='" + dataGridView1.SelectedRows[0].Cells[3].Value.ToString() + "', DateOfBirth=CAST(N'" + DateTime.ParseExact(dataGridView1.SelectedRows[0].Cells[4].Value.ToString(), "dd.MM.yyyy hh:mm:ss" ,CultureInfo.InvariantCulture).ToString("yyyy-MM-dd") + "' AS DateTime), DateOfBirthString='" + dataGridView1.SelectedRows[0].Cells[4].Value.ToString() + "', Username='" + dataGridView1.SelectedRows[0].Cells[5].Value.ToString() + "', Password='" + dataGridView1.SelectedRows[0].Cells[6].Value.ToString() + "', Gender='" + dataGridView1.SelectedRows[0].Cells[7].Value.ToString() + "' WHERE Id = " + index + ";";
 
                 try
                 {

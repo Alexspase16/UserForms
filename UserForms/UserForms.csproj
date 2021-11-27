@@ -99,6 +99,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dboDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="dboDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dboDataSet5.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +154,17 @@
     </None>
     <None Include="dboDataSet1.xss">
       <DependentUpon>dboDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="dboDataSet5.xsc">
+      <DependentUpon>dboDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="dboDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dboDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dboDataSet5.xss">
+      <DependentUpon>dboDataSet5.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
